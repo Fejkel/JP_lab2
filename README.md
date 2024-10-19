@@ -1,13 +1,11 @@
 # Treść programowa
 Zaprojektowanie i implementacja aplikacji pobierającej dane wejściowe z linii komend, zawierającej pętle, instrukcje warunkowe oraz obsługę wyjątków.
-#
 #Cel zajęć
 Obie grupy mają za zadanie zaimplementować swój meta-heurystyczny algorytm problemu przydziału zasobów (resource-allocation).
 
 Przebieg działania programu może być wyświetlany na standardowym wyjściu (konsola). Ważna parametry, takie jak np. aktualnie badana konfiguracja bądź wartość funkcji celu powinny być na bieżąco prezentowane w celu śledzenia przebiegu działania programu. Warunkiem terminującym działanie powinien być brak poprawy wyniku przez kolejną określoną ilość iteracji. Dane wejściowe będą czytane z pliku (przykładowe treści niżej).
 
 Należy zwrócić też uwagę na sensowność generowanych wyników - np. dana osoba jako sugestie nie powinna otrzymać samej siebie, pracownik nie może być przypisany jednocześnie do dwóch projektów, każdy projekt musi mieć pracownika itp.
-#
 #Przykładowe klasy w projekcie
 Należy zwrócić uwagę na poddział obowiązków klas w kodzie. Sugerowane minimum:
 
@@ -16,14 +14,12 @@ Należy zwrócić uwagę na poddział obowiązków klas w kodzie. Sugerowane min
 - semantyczna reprezentacja danych (POJO),
 - implementacja algorytmu
 - prezentacja rezultatu działania algorytmu (np. output, zapis do pliku,…)
-#
 #Grupa A
 Problem jaki należy rozwiązać to stworzenie inteligentnego systemu **wspomagającego konferencje branżowe**.
 
 Standardowo podczas konferencji uczestnicy sami zajmują się nawiązywaniem relacji i nowych kontaktów. Nie wszyscy jednak wiedzą o sobie wystarczająco dużo, bądź mają pewne cechy osobowości które utrudniają im nawiązanie takich  relacji. W tym zadaniu zostanie stworzony specjalny algorytm który wniesie dodatkową wartość do takich spotkań.
 
 Warunkiem wstępnym jest to aby każdy uczestnik określił zarówno (1) **posiadane przez siebie atrybuty** jaki i (2) **poszukiwane cechy**. Przykładowo osoba może być być *inwestorem i znawcą sztuki*, ale na konferencji z pewnych powodów będzie jest szczególnie zainteresowany rozmową także z *inwestorem,* ale także z potencjalnym *programistą*.
-#
 #Przykładowy plik wejściowy
 Algorytm jako wejście otrzymuje listę gości, gdzie każdy z nich jest opisany poprzez (1) posiadane jak i (2) poszukiwane cechy (oddzielone białym symbolem \t).
 ```
@@ -42,5 +38,4 @@ Algorytm jako wejście otrzymuje listę gości, gdzie każdy z nich jest opisany
 13	MARKETING	MARKETING,SALES
 ```
 Jego wynikiem jest zasugerowanie każdemu uczestnikowi 5 osób które będą dla niego interesujące. Kryterium dopasowania (funkcja celu) tak więc jest miara spełniania oczekiwań użytkowników konferencji i powinna być ona zmaksymalizowana w trakcie działania algorytmu.
-#
 
