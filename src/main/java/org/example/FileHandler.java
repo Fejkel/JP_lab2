@@ -32,7 +32,7 @@ public class FileHandler {
 
         while (fileScanner.hasNextLine())
         {
-            ArrayList<String> possessed = new ArrayList<>();
+            ArrayList<String> possessed = new ArrayList <>();
             ArrayList<String> sought = new ArrayList<>();
 
             readline = fileScanner.nextLine();
