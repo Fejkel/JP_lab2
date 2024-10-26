@@ -19,12 +19,22 @@ public class FileHandler {
         File inputFile = new File(absPath);
         try {
             Scanner fileScanner = new Scanner(inputFile);
+            String readline;
+
+            System.out.println("Wczytana lista:");
+            while(fileScanner.hasNextLine())
+            {
+                readline = fileScanner.nextLine();
+                System.out.println(readline);
+            }
+            fileScanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open input file at path " + this.absPath);
         }
     }
 
     public ArrayList<Guest> getGuestsList() throws FileNotFoundException {
+
         String readline;
         File inputFile = new File(this.absPath);
         Scanner fileScanner = new Scanner(inputFile);
@@ -32,21 +42,20 @@ public class FileHandler {
 
         while (fileScanner.hasNextLine())
         {
-            ArrayList<String> possessed = new ArrayList <>();
-            ArrayList<String> sought = new ArrayList<>();
-
             readline = fileScanner.nextLine();
 
             String temp = readline.split("\t")[1];
-            possessed.add(Arrays.toString(temp.split(",")));
+            ArrayList<String> possessed = new ArrayList <>(Arrays.asList(temp.split(",")));
+
             temp = readline.split("\t")[2];
-            sought.add(Arrays.toString(temp.split(",")));
+            ArrayList<String> sought = new ArrayList <>(Arrays.asList(temp.split(",")));
 
             Guest guest = new Guest();
             guest.setPossessed_attributes(possessed);
             guest.setSought_attributes(sought);
             GuestsList.add(guest);
         }
+        fileScanner.close();
         return GuestsList;
     }
 }
