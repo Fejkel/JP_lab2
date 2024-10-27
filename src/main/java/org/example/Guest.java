@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Guest {
     private ArrayList<String> possessed_attributes;
     private ArrayList<String> sought_attributes;
-
     public Guest() {}
 
 

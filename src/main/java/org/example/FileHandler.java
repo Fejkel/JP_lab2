@@ -27,7 +27,9 @@ public class FileHandler {
                 readline = fileScanner.nextLine();
                 System.out.println(readline);
             }
+
             fileScanner.close();
+
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open input file at path " + this.absPath);
         }
