@@ -21,7 +21,7 @@ public class FileHandler {
             Scanner fileScanner = new Scanner(inputFile);
             String readline;
 
-            System.out.println("Wczytana lista:");
+            System.out.println("Read list:");
             while(fileScanner.hasNextLine())
             {
                 readline = fileScanner.nextLine();
@@ -41,7 +41,7 @@ public class FileHandler {
         File inputFile = new File(this.absPath);
         Scanner fileScanner = new Scanner(inputFile);
         ArrayList<Guest> GuestsList = new ArrayList<>();
-
+        int id=1;
         while (fileScanner.hasNextLine())
         {
             readline = fileScanner.nextLine();
@@ -52,10 +52,9 @@ public class FileHandler {
             temp = readline.split("\t")[2];
             ArrayList<String> sought = new ArrayList <>(Arrays.asList(temp.split(",")));
 
-            Guest guest = new Guest();
-            guest.setPossessed_attributes(possessed);
-            guest.setSought_attributes(sought);
+            Guest guest = new Guest(possessed,sought,id);
             GuestsList.add(guest);
+            id++;
         }
         fileScanner.close();
         return GuestsList;

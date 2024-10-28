@@ -1,68 +1,72 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 public class Simulation{
-    private ArrayList<Guest> guests;
-    private ArrayList<ArrayList<String>> list_of_possessed_attributes;
-    private ArrayList<ArrayList<String>> list_of_sought_attributes;
-    private static final int population_size = 100;
-    private static final int max_generations = 1000;
+    private final ArrayList<Guest> guests;
+
+    private static final int population_size = 300;
+    private static final int max_generations = 10000;
 
     public Simulation(ArrayList<Guest> guests){
     this.guests = guests;
     }
-    //Kryterium porównawczym będzie lista cech z którymi dana osoba chce się spotkać czym wiecej osób tego typu tym lepiej
-    //schemat robienia algorytmu porównawczeog
-    public void startSimulation()
-    {
-        SettingList();
-        createGenerations();
-    }
-    private void SettingList(){
-        ArrayList<ArrayList<String>> tempPossesed = new ArrayList<>();
-        ArrayList<ArrayList<String>> tempSought = new ArrayList<>();
-
-        guests.forEach(n -> {
-            tempPossesed.add(n.getPossessed_attributes());
-            tempSought.add(n.getSought_attributes());
-        });
-        setList_of_possessed_attributes(tempPossesed);
-        setList_of_sought_attributes(tempSought);
-    }
     private void createGenerations()
     {
-        int compability = 0,generation_no = 0;
-        ArrayList<ArrayList<String>> temp = new ArrayList<>();
-        list_of_possessed_attributes.stream().skip(0).forEach(n -> temp.add(n));
-        Population population= new Population(list_of_sought_attributes.get(0),temp,compability);
-        while (generation_no<max_generations)
+        Random rand = new Random();
+        ArrayList<ArrayList<Guest>> solutionOfGuests=new ArrayList<>();
+        int ids = guests.size();
+        for(int id = 0; id < ids; id++)
         {
-            if(population.Compatibility == 1)
+            int generation_no = 0;
+            ArrayList<ArrayList<Guest>> fitting = new ArrayList<>();
+            for(int i = 0; i < population_size; i++)
             {
-                
-                break;
+                ArrayList<Guest> fitting_guest = new ArrayList<>();
+                for(int j = 0; j < 5; j++) {
+                    int random_parent = rand.nextInt(guests.size());
+                    while(random_parent == 0)
+                    {
+                        random_parent = rand.nextInt(guests.size());
+                    }
+                    fitting_guest.add(guests.get(random_parent));
+                }
+                fitting.add(fitting_guest);
             }
-            generation_no++;
+
+            ArrayList<Guest> guestsWithoutSearchingOne = guests;
+            guestsWithoutSearchingOne.removeFirst();
+
+            ArrayList<Guest> tempSolution = new ArrayList<>();
+
+            while (generation_no<max_generations)
+            {
+                Population population= new Population(fitting, guests.getFirst().getSought_attributes(),guestsWithoutSearchingOne, population_size);
+                population.startPopulation();
+
+                fitting.clear();
+                fitting.addAll(population.getChildPopulation());
+
+                tempSolution.clear();
+                tempSolution.addAll(population.getBestResult());
+                generation_no++;
+            }
+            solutionOfGuests.add(tempSolution);
+        }
+        System.out.println();
+        for (ArrayList<Guest> solutionOfGuest : solutionOfGuests) {
+            for (Guest guest : solutionOfGuest) {
+                System.out.print(guest.getId()+", ");
+            }
+            System.out.println();
         }
     }
 
-    private float CalculatedCompatibility()
+    
+    public void startSimulation()
     {
-        return 0;
+        createGenerations();
     }
-
-//settery
-    public void setList_of_possessed_attributes(ArrayList<ArrayList<String>> list_of_possessed_attributes) {
-        this.list_of_possessed_attributes = list_of_possessed_attributes;
-    }
-
-    public void setList_of_sought_attributes(ArrayList<ArrayList<String>> list_of_sought_attributes) {
-        this.list_of_sought_attributes = list_of_sought_attributes;
-    }
-//gettery
-//    public ArrayList<ArrayList<String>> getList_of_possessed_attributes(){return list_of_possessed_attributes;}
-//    public ArrayList<ArrayList<String>> getList_of_sought_attributes() {return list_of_sought_attributes;}
 }
 
