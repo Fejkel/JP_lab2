@@ -21,7 +21,7 @@ public class FileHandler {
             Scanner fileScanner = new Scanner(inputFile);
             String readline;
 
-            System.out.println("Read list:");
+            System.out.println("Loaded list:");
             while(fileScanner.hasNextLine())
             {
                 readline = fileScanner.nextLine();

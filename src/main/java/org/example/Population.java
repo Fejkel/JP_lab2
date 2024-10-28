@@ -54,19 +54,23 @@ public class Population {
 
         ArrayList<Guest> parent1 = survivorPopulation.get(rand.nextInt(survivorPopulation.size()));
         ArrayList<Guest> parent2 = survivorPopulation.get(rand.nextInt(survivorPopulation.size()));
-
-        for (int i = 0; i < parent1.size(); i++)
-        {
-            if(rand.nextBoolean())
-            {
-                child.add(parent1.get(i));
-            }
-            else
-            {
-                child.add(parent2.get(i));
-            }
+        while(parent1 == parent2) {
+            parent2 = survivorPopulation.get(rand.nextInt(survivorPopulation.size()));
         }
-        child.set(rand.nextInt(parent1.size()), guests.get(rand.nextInt(guests.size())));
+
+        for (int i = 0; i < parent1.size(); i++) {
+            Guest selectedGuest = rand.nextBoolean() ? parent1.get(i) : parent2.get(i);
+            while (child.contains(selectedGuest)) {
+                selectedGuest = guests.get(rand.nextInt(guests.size()));
+            }
+            child.add(selectedGuest);
+        }
+
+        Guest randomGuest = guests.get(rand.nextInt(guests.size()));
+        while (child.contains(randomGuest)) {
+            randomGuest = guests.get(rand.nextInt(guests.size()));
+        }
+        child.set(rand.nextInt(parent1.size()), randomGuest);
 
         return child;
     }
@@ -119,4 +123,5 @@ public class Population {
     //getters
     public ArrayList<ArrayList<Guest>> getChildPopulation(){return childPopulation;}
     public ArrayList<Guest> getBestResult(){return bestResult;}
+    public float getBestCompatibility(){return bestCompatibility;}
 }
