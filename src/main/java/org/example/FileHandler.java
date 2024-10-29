@@ -21,7 +21,7 @@ public class FileHandler {
             Scanner fileScanner = new Scanner(inputFile);
             String readline;
 
-            System.out.println("Loaded list:");
+            System.out.println("Loaded list:\n[id]\t[possessed_attributes]\t[sough_attributes]");
             while(fileScanner.hasNextLine())
             {
                 readline = fileScanner.nextLine();
@@ -32,6 +32,7 @@ public class FileHandler {
 
         } catch (FileNotFoundException e) {
             System.out.println("Cannot open input file at path " + this.absPath);
+            System.exit(1);
         }
     }
 
@@ -45,16 +46,21 @@ public class FileHandler {
         while (fileScanner.hasNextLine())
         {
             readline = fileScanner.nextLine();
+            try {
+                String temp = readline.split("\t")[1];
+                ArrayList<String> possessed = new ArrayList<>(Arrays.asList(temp.toUpperCase().split(",")));
 
-            String temp = readline.split("\t")[1];
-            ArrayList<String> possessed = new ArrayList <>(Arrays.asList(temp.split(",")));
+                temp = readline.split("\t")[2];
+                ArrayList<String> sought = new ArrayList<>(Arrays.asList(temp.toUpperCase().split(",")));
 
-            temp = readline.split("\t")[2];
-            ArrayList<String> sought = new ArrayList <>(Arrays.asList(temp.split(",")));
-
-            Guest guest = new Guest(possessed,sought,id);
-            GuestsList.add(guest);
-            id++;
+                Guest guest = new Guest(possessed, sought, id);
+                GuestsList.add(guest);
+                id++;
+            }catch (ArrayIndexOutOfBoundsException e)
+            {
+                System.out.println("Invalid file format");
+                System.exit(2);
+            }
         }
         fileScanner.close();
         return GuestsList;

@@ -5,9 +5,24 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        FileHandler filehandler = new FileHandler("data_input.txt");
-        ArrayList<Guest> result = filehandler.getGuestsList();
-        Simulation sim = new Simulation(result);
-        sim.startSimulation();
+
+        if(args.length == 0)
+        {
+            System.out.println("please use this .jar with with --help for insturctions");
+        }else if (args[0].equals("--help"))
+        {
+            System.out.println("""
+                    to run the program properly type: 'java -jar [program path] [input file path]' in terminal
+                    Correct file format:
+                    [id]\t[possessed_attribute1,possessed_attribute2,...]\t[sough_attribute1,sough_attribute2,...]""");
+
+        }
+        else
+        {
+            FileHandler filehandler = new FileHandler(args[0]);
+            ArrayList<Guest> result = filehandler.getGuestsList();
+            Simulation sim = new Simulation(result);
+            sim.startSimulation();
+        }
     }
 }

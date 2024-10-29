@@ -44,7 +44,7 @@ public class Simulation{
             guestsWithoutSearching.remove(searchingGuest);
 
             ArrayList<Guest> tempSolution = new ArrayList<>();
-            float bestCampability=0;
+            float bestCompatibility=0;
             int repeated = 0;
             while (generation_no < max_generations)
             {
@@ -59,7 +59,7 @@ public class Simulation{
 
                 generation_no++;
 
-                if(bestCampability == population.getBestCompatibility())
+                if(bestCompatibility == population.getBestCompatibility())
                 {
                     repeated++;
                     if(repeated>=10)
@@ -67,9 +67,9 @@ public class Simulation{
                         solutionOfGuests.add(tempSolution);
                         break;
                     }
-                }else if(bestCampability != population.getBestCompatibility())
+                }else if(bestCompatibility != population.getBestCompatibility())
                 {
-                    bestCampability = population.getBestCompatibility();
+                    bestCompatibility = population.getBestCompatibility();
                     repeated=0;
                 }
                 if(generation_no == max_generations) solutionOfGuests.add(tempSolution);
