@@ -8,7 +8,7 @@ public class Main {
 
         if(args.length == 0)
         {
-            System.out.println("please use this .jar with with --help for insturctions");
+            System.out.println("please use this .jar with with --help for instructions");
         }else if (args[0].equals("--help"))
         {
             System.out.println("""
