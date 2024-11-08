@@ -111,7 +111,11 @@ public class Population {
         population.forEach(n -> tableOfCompatibility.add(CalculateCompatibility(n)));
         Collections.sort(tableOfCompatibility);
         this.bestCompatibility = Collections.max(tableOfCompatibility);
-        return tableOfCompatibility.get(tableOfCompatibility.size()-(tableOfCompatibility.size()/20));
+        if(population_size <10)
+        {
+          return tableOfCompatibility.get(tableOfCompatibility.size()-(tableOfCompatibility.size()/2));
+        }
+        return tableOfCompatibility.get(tableOfCompatibility.size()-(tableOfCompatibility.size()*2/10));
     }
 
 

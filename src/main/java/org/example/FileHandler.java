@@ -9,44 +9,24 @@ import java.util.Scanner;
 public class FileHandler {
     private final String absPath;
 
-    public FileHandler(String absPath){
+    public FileHandler(String absPath) {
         this.absPath = absPath;
-        this.validFile();
 
     }
-    public void validFile()
+
+    public ArrayList<Guest> getGuestsList() throws FileNotFoundException
     {
-        File inputFile = new File(absPath);
-        try {
-            Scanner fileScanner = new Scanner(inputFile);
-            String readline;
-
-            System.out.println("Loaded list:\n[id]\t[possessed_attributes]\t[sough_attributes]");
-            while(fileScanner.hasNextLine())
-            {
-                readline = fileScanner.nextLine();
-                System.out.println(readline);
-            }
-
-            fileScanner.close();
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Cannot open input file at path " + this.absPath);
-            System.exit(1);
-        }
-    }
-
-    public ArrayList<Guest> getGuestsList() throws FileNotFoundException {
-
         String readline;
         File inputFile = new File(this.absPath);
         Scanner fileScanner = new Scanner(inputFile);
-        ArrayList<Guest> GuestsList = new ArrayList<>();
-        int id=1;
-        while (fileScanner.hasNextLine())
-        {
+        ArrayList<Guest> guestsList = new ArrayList<>();
+        int id = 1;
+
+        System.out.println("Loaded data:");
+        while (fileScanner.hasNextLine()) {
             readline = fileScanner.nextLine();
             try {
+                System.out.println(readline);
                 String temp = readline.split("\t")[1];
                 ArrayList<String> possessed = new ArrayList<>(Arrays.asList(temp.toUpperCase().split(",")));
 
@@ -54,15 +34,14 @@ public class FileHandler {
                 ArrayList<String> sought = new ArrayList<>(Arrays.asList(temp.toUpperCase().split(",")));
 
                 Guest guest = new Guest(possessed, sought, id);
-                GuestsList.add(guest);
+                guestsList.add(guest);
                 id++;
-            }catch (ArrayIndexOutOfBoundsException e)
-            {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid file format");
                 System.exit(2);
             }
         }
         fileScanner.close();
-        return GuestsList;
+        return guestsList;
     }
 }
