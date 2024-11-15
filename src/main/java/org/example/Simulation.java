@@ -38,26 +38,26 @@ public class Simulation{
                 firstInitialized.clear();
                 firstInitialized.addAll(population.getChildPopulation());
 
-                tempSolution.clear();
-                tempSolution.addAll(population.getBestResult());
-
                 generation_no++;
 
+
+                System.out.println(bestCompatibility);
                 if(bestCompatibility == population.getBestCompatibility())
                 {
                     repeated++;
                     if(repeated>=10)
                     {
-                        solutionOfGuests.add(tempSolution);
                         break;
                     }
-                }else if(bestCompatibility != population.getBestCompatibility())
+                }else if(bestCompatibility < population.getBestCompatibility())
                 {
                     bestCompatibility = population.getBestCompatibility();
+                    tempSolution.clear();
+                    tempSolution.addAll(population.getBestResult());
                     repeated=0;
                 }
-                if(generation_no == max_generations) solutionOfGuests.add(tempSolution);
             }
+            solutionOfGuests.add(tempSolution);
         }
 
         this.solution=solutionOfGuests;
